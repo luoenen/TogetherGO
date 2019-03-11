@@ -4,4 +4,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <EditText
+        android:id="@+id/register_account"
+        android:hint="@string/login_account_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/register_password"
+        android:layout_below="@id/register_account"
+        android:hint="@string/login_password_hint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/register_to_register"
+        android:text="@string/login_to_register"
+        android:layout_below="@id/register_password"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ProgressBar
+        android:id="@+id/register_progressBar"
+        android:layout_below="@id/register_to_register"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 </RelativeLayout>
