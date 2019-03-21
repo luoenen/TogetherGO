@@ -18,17 +18,22 @@ import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.huel.luosenen.togethergo.R;
+import com.huel.luosenen.togethergo.fragment.FragmentFive;
+import com.huel.luosenen.togethergo.fragment.FragmentFour;
 import com.huel.luosenen.togethergo.fragment.FragmentOne;
+import com.huel.luosenen.togethergo.fragment.FragmentSix;
 import com.huel.luosenen.togethergo.fragment.FragmentThree;
 import com.huel.luosenen.togethergo.fragment.FragmentTwo;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    private TextView mTextMessage;
     private FragmentOne fragmentOne;
     private FragmentTwo fragmentTwo;
     private FragmentThree fragmentThree;
+    private FragmentFour fragmentFour;
+    private FragmentFive fragmentFive;
+    private FragmentSix fragmentSix;
 
 
     @Override
@@ -36,7 +41,6 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
-        mTextMessage = (TextView) findViewById(R.id.message);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
@@ -97,23 +101,25 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         FragmentTransaction beginTransaction=getFragmentManager().beginTransaction();
-        if (id == R.id.nav_camera) {
-            mTextMessage.setText(R.string.app_name);
-            showNav(R.id.nav_camera);
+        if (id == R.id.information) {
 
-        } else if (id == R.id.nav_gallery) {
+            showNav(R.id.information);
 
-            mTextMessage.setText(R.string.welcome_text);
-            showNav(R.id.nav_gallery);
-        } else if (id == R.id.nav_slideshow) {
-            mTextMessage.setText(R.string.login_find);
-            showNav(R.id.nav_manage);
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.setting) {
 
-        } else if (id == R.id.nav_share) {
+            showNav(R.id.setting);
+        } else if (id == R.id.beginning) {
 
-        } else if (id == R.id.nav_send) {
+            showNav(R.id.beginning);
+        } else if (id == R.id.update) {
 
+            showNav(R.id.update);
+        } else if (id == R.id.share) {
+
+            showNav(R.id.share);
+        } else if (id == R.id.send) {
+
+            showNav(R.id.send);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -125,31 +131,52 @@ public class MainActivity extends AppCompatActivity
         fragmentOne=new FragmentOne();
         fragmentTwo=new FragmentTwo();
         fragmentThree=new FragmentThree();
+        fragmentFour = new FragmentFour();
+        fragmentFive = new FragmentFive();
+        fragmentSix = new FragmentSix();
         FragmentTransaction beginTransaction=getFragmentManager().beginTransaction();
-        beginTransaction.add(R.id.content,fragmentOne).add(R.id.content,fragmentTwo).add(R.id.content,fragmentThree);//开启一个事务将fragment动态加载到组件
-        beginTransaction.hide(fragmentOne).hide(fragmentTwo).hide(fragmentThree);//隐藏fragment
-        beginTransaction.addToBackStack(null);//返回到上一个显示的fragment
-        beginTransaction.commit();//每一个事务最后操作必须是commit（），否则看不见效果
-        showNav(R.id.nav_camera);
+        beginTransaction.add(R.id.content,fragmentOne).add(R.id.content,fragmentTwo).add(R.id.content,fragmentThree).add(R.id.content,fragmentFour).add(R.id.content,fragmentFive).add(R.id.content,fragmentSix);//开启一个事务将fragment动态加载到组件
+        beginTransaction.hide(fragmentOne).hide(fragmentTwo).hide(fragmentThree).hide(fragmentFour).hide(fragmentFive).hide(fragmentSix);//隐藏fragment
+        beginTransaction.addToBackStack(null);
+        beginTransaction.commit();
+        showNav(R.id.beginning);
     }
     private void showNav(int id){
         FragmentTransaction beginTransaction=getFragmentManager().beginTransaction();
         switch (id){
-            case R.id.nav_camera:
-                beginTransaction.hide(fragmentTwo).hide(fragmentThree);
+            case R.id.information:
+                beginTransaction.hide(fragmentTwo).hide(fragmentThree).hide(fragmentFour).hide(fragmentFive).hide(fragmentSix);
                 beginTransaction.show(fragmentOne);
                 beginTransaction.addToBackStack(null);
                 beginTransaction.commit();
                 break;
-            case R.id.nav_gallery:
-                beginTransaction.hide(fragmentOne).hide(fragmentThree);
+            case R.id.setting:
+                beginTransaction.hide(fragmentOne).hide(fragmentThree).hide(fragmentFour).hide(fragmentFive).hide(fragmentSix);
                 beginTransaction.show(fragmentTwo);
                 beginTransaction.addToBackStack(null);
                 beginTransaction.commit();
                 break;
-            case R.id.nav_manage:
-                beginTransaction.hide(fragmentTwo).hide(fragmentOne);
+            case R.id.beginning:
+                beginTransaction.hide(fragmentTwo).hide(fragmentOne).hide(fragmentFour).hide(fragmentFive).hide(fragmentSix);
                 beginTransaction.show(fragmentThree);
+                beginTransaction.addToBackStack(null);
+                beginTransaction.commit();
+                break;
+            case R.id.update:
+                beginTransaction.hide(fragmentTwo).hide(fragmentOne).hide(fragmentThree).hide(fragmentFive).hide(fragmentSix);
+                beginTransaction.show(fragmentFour);
+                beginTransaction.addToBackStack(null);
+                beginTransaction.commit();
+                break;
+            case R.id.share:
+                beginTransaction.hide(fragmentTwo).hide(fragmentOne).hide(fragmentThree).hide(fragmentFour).hide(fragmentSix);
+                beginTransaction.show(fragmentFive);
+                beginTransaction.addToBackStack(null);
+                beginTransaction.commit();
+                break;
+            case R.id.send:
+                beginTransaction.hide(fragmentSix).hide(fragmentOne).hide(fragmentThree).hide(fragmentFour).hide(fragmentFive);
+                beginTransaction.show(fragmentSix);
                 beginTransaction.addToBackStack(null);
                 beginTransaction.commit();
                 break;

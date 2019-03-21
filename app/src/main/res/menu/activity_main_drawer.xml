@@ -5,19 +5,19 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
+            android:id="@+id/information"
             android:icon="@mipmap/information"
             android:title="信息" />
         <item
-            android:id="@+id/nav_gallery"
+            android:id="@+id/setting"
             android:icon="@mipmap/setting"
             android:title="设置" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/beginning"
             android:icon="@mipmap/work"
             android:title="开始" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/update"
             android:icon="@mipmap/update"
             android:title="更新" />
     </group>
@@ -25,11 +25,11 @@
     <item android:title="分享">
         <menu>
             <item
-                android:id="@+id/nav_share"
+                android:id="@+id/share"
                 android:icon="@mipmap/share"
                 android:title="分享" />
             <item
-                android:id="@+id/nav_send"
+                android:id="@+id/send"
                 android:icon="@mipmap/sent"
                 android:title="发送" />
         </menu>
