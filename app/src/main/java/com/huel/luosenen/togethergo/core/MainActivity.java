@@ -1,5 +1,6 @@
 package com.huel.luosenen.togethergo.core;
 
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,16 +15,28 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 import com.huel.luosenen.togethergo.R;
+import com.huel.luosenen.togethergo.fragment.FragmentOne;
+import com.huel.luosenen.togethergo.fragment.FragmentThree;
+import com.huel.luosenen.togethergo.fragment.FragmentTwo;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private TextView mTextMessage;
+    private FragmentOne fragmentOne;
+    private FragmentTwo fragmentTwo;
+    private FragmentThree fragmentThree;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        init();
+        mTextMessage = (TextView) findViewById(R.id.message);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
@@ -83,13 +96,18 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
+        FragmentTransaction beginTransaction=getFragmentManager().beginTransaction();
         if (id == R.id.nav_camera) {
-            // Handle the camera action
+            mTextMessage.setText(R.string.app_name);
+            showNav(R.id.nav_camera);
+
         } else if (id == R.id.nav_gallery) {
 
+            mTextMessage.setText(R.string.welcome_text);
+            showNav(R.id.nav_gallery);
         } else if (id == R.id.nav_slideshow) {
-
+            mTextMessage.setText(R.string.login_find);
+            showNav(R.id.nav_manage);
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
@@ -102,4 +120,41 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    private void init(){
+        fragmentOne=new FragmentOne();
+        fragmentTwo=new FragmentTwo();
+        fragmentThree=new FragmentThree();
+        FragmentTransaction beginTransaction=getFragmentManager().beginTransaction();
+        beginTransaction.add(R.id.content,fragmentOne).add(R.id.content,fragmentTwo).add(R.id.content,fragmentThree);//开启一个事务将fragment动态加载到组件
+        beginTransaction.hide(fragmentOne).hide(fragmentTwo).hide(fragmentThree);//隐藏fragment
+        beginTransaction.addToBackStack(null);//返回到上一个显示的fragment
+        beginTransaction.commit();//每一个事务最后操作必须是commit（），否则看不见效果
+        showNav(R.id.nav_camera);
+    }
+    private void showNav(int id){
+        FragmentTransaction beginTransaction=getFragmentManager().beginTransaction();
+        switch (id){
+            case R.id.nav_camera:
+                beginTransaction.hide(fragmentTwo).hide(fragmentThree);
+                beginTransaction.show(fragmentOne);
+                beginTransaction.addToBackStack(null);
+                beginTransaction.commit();
+                break;
+            case R.id.nav_gallery:
+                beginTransaction.hide(fragmentOne).hide(fragmentThree);
+                beginTransaction.show(fragmentTwo);
+                beginTransaction.addToBackStack(null);
+                beginTransaction.commit();
+                break;
+            case R.id.nav_manage:
+                beginTransaction.hide(fragmentTwo).hide(fragmentOne);
+                beginTransaction.show(fragmentThree);
+                beginTransaction.addToBackStack(null);
+                beginTransaction.commit();
+                break;
+        }
+    }
+
 }
+
